@@ -1,0 +1,30 @@
+table:
+  name: ods_user_info
+  schema: camp
+  owner: camp_user
+  domain: camp
+  repository: doris
+
+integration:
+  source: "script/ods_user_info.sql"
+  resource:
+    - "script/..."
+  type:
+  url:
+  command:
+
+orchestrate:
+  depend:
+    auto-depend: true
+    dependencies:
+      - table_1
+  schedule:
+    cron: "0 3 0 * * ? *"
+  failure:
+    retry: 2
+    alert: true
+
+
+quality:
+  sql:
+  python:
